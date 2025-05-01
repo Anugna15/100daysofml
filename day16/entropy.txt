@@ -1,0 +1,106 @@
+Decision Tree Classifier using Entropy (Information Gain)
+
+## 📌 Objective:
+To understand and implement a **Decision Tree Classifier** using the **Entropy** criterion for splitting, train it on the Iris dataset, and visualize the tree.
+
+---
+
+## 📘 Theory
+
+### 🌳 What is a Decision Tree?
+A **Decision Tree** is a supervised machine learning algorithm used for both classification and regression tasks. It models data using a tree-like structure where:
+- Internal nodes represent decisions on features
+- Branches represent the outcome of the decision
+- Leaf nodes represent class labels (in classification)
+
+---
+
+### 🧮 What is Entropy?
+**Entropy** measures the impurity or randomness in a dataset. It is defined as:
+
+\[
+Entropy(S) = -\sum_{i=1}^{c} p_i \log_2(p_i)
+\]
+
+Where:
+- \( p_i \) is the proportion of samples belonging to class \( i \)
+- \( c \) is the total number of classes
+
+---
+
+### 🔍 What is Information Gain?
+**Information Gain (IG)** measures the effectiveness of an attribute in classifying the training data. It is calculated as:
+
+\[
+IG(D, A) = Entropy(D) - \sum_{v \in Values(A)} \frac{|D_v|}{|D|} \cdot Entropy(D_v)
+\]
+
+The **attribute with the highest IG** is chosen for the split.
+
+---
+
+### 🧠 Entropy vs Gini:
+| Criterion       | Description                            | When to Use                     |
+|----------------|----------------------------------------|----------------------------------|
+| **Entropy**     | Based on Information Gain (more complex) | Better for more informative splits |
+| **Gini Index**  | Measures impurity, faster to compute    | Preferred when speed is needed   |
+
+---
+
+## 🧪 Practical Implementation
+
+### 📦 Libraries Used:
+```python
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+```
+
+---
+
+### 📊 Dataset:
+**Iris dataset** with 3 classes and 4 features:
+- Features: sepal length, sepal width, petal length, petal width
+- Target: iris-setosa, iris-versicolor, iris-virginica
+
+---
+
+### ⚙️ Model Training:
+```python
+clf = DecisionTreeClassifier(criterion='entropy', random_state=42, max_depth=3, min_samples_split=3)
+clf.fit(X_train, y_train)
+```
+
+- `criterion='entropy'`: uses information gain to split nodes
+- `max_depth=3`: limits the depth of the tree to avoid overfitting
+- `min_samples_split=3`: node must have at least 3 samples to split
+
+---
+
+### ✅ Evaluation:
+```python
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+```
+
+---
+
+### 🌳 Tree Visualization:
+```python
+plt.figure(figsize=(12,8))
+plot_tree(clf, filled=True, feature_names=iris.feature_names, class_names=iris.target_names)
+plt.title("Decision Tree Visualization")
+plt.show()
+```
+
+This gives a clear visual understanding of how the tree makes decisions based on features.
+
+## 📈 Output Example:
+- **Accuracy:** ~93%
+- **Confusion Matrix:** Shows the correct vs misclassified samples
+- **Tree Diagram:** Highlights the split features, conditions, and outcomes
+

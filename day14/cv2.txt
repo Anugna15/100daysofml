@@ -1,0 +1,97 @@
+Cross Validation Techniques (K-Fold, Stratified K-Fold, LOOCV, Leave-P-Out)
+
+
+### What is Cross-Validation?
+Cross-validation is a statistical method used to estimate the skill of machine learning models.  
+It divides the dataset into multiple parts (folds) and tests the model's ability to predict unseen data.  
+The goal is to **reduce overfitting** and ensure the model generalizes well.
+
+---
+
+## 🔹 Types of Cross-Validation
+
+### 1. K-Fold Cross Validation
+- The dataset is divided into **K equal-sized folds**.
+- The model is trained on (K-1) folds and tested on the remaining fold.
+- This process is repeated **K times**, and the results are averaged.
+
+> Example: 5-Fold CV divides data into 5 parts → trains on 4 → tests on 1 → repeats 5 times.
+
+---
+
+### 2. Stratified K-Fold Cross Validation
+- Works like K-Fold but ensures that each fold **preserves the percentage of samples for each class**.
+- **Useful for imbalanced datasets** (example: if 90% positive and 10% negative samples).
+
+---
+
+### 3. Leave-One-Out Cross Validation (LOOCV)
+- **Extreme case of K-Fold** where K = number of data points.
+- Each observation is used once as a test set, and the rest as the training set.
+- **Very accurate** but **computationally expensive** for large datasets.
+
+---
+
+### 4. Leave-P-Out Cross Validation (LPOCV)
+- Similar to LOOCV, but instead of leaving one observation out, **P observations** are left out each time.
+- **Very slow** when P increases or data is large.
+
+---
+
+## 🔹 Practical Implementation
+
+- Dataset used: **Breast Cancer Dataset** (from sklearn)
+- Preprocessing: **StandardScaler** applied
+- Model used: **Random Forest Classifier**
+
+**Cross-Validation Applied:**
+- K-Fold Cross Validation (K=5)
+- Stratified K-Fold Cross Validation (K=5)
+- Leave-One-Out Cross Validation
+- Leave-P-Out Cross Validation (P=2, small subset used)
+
+---
+
+## 🔹 Code Highlights
+
+```python
+from sklearn.model_selection import KFold, StratifiedKFold, LeaveOneOut, LeavePOut
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Helper function created to perform cross-validation
+def cross_validate(model, X, y, cv_method):
+    ...
+
+# Different cross-validation strategies tested
+kfold = KFold(n_splits=5, shuffle=True, random_state=42)
+stratkfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+loo = LeaveOneOut()
+lpo = LeavePOut(p=2)
+```
+
+✅ For each method, **mean Accuracy, Precision, Recall, and F1-Score** were reported.
+
+✅ For **Leave-P-Out**, only a **subset of 50 samples** was used to avoid extremely long runtimes.
+
+---
+
+## 🔹 Results (Sample Expected Output)
+
+| Cross-Validation Method | Accuracy | Precision | Recall | F1-Score |
+|--------------------------|----------|-----------|--------|----------|
+| K-Fold                   | 0.96     | 0.96      | 0.96   | 0.96     |
+| Stratified K-Fold        | 0.96     | 0.96      | 0.96   | 0.96     |
+| Leave-One-Out            | 0.96     | 0.96      | 0.96   | 0.96     |
+| Leave-P-Out (Subset)     | 0.94     | 0.94      | 0.94   | 0.94     |
+
+(Note: Actual scores may vary slightly based on random shuffling.)
+
+---
+
+## 🔹 Key Learnings
+
+- Cross-validation helps in **better model evaluation** than a simple train-test split.
+- **StratifiedKFold** is better for **imbalanced datasets**.
+- **LOOCV** is very accurate but **computationally very heavy**.
+- **LeavePOut** is rarely used except for very **small datasets**.

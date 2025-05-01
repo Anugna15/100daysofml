@@ -1,0 +1,86 @@
+Decision Tree on Iris Dataset
+
+In this task, we explored the **Decision Tree Classifier**, a popular supervised learning algorithm used for both classification and regression tasks. We applied it on the **Iris dataset**, a classic dataset in machine learning, to build a model and visualize the decision-making process.
+
+---
+
+## 🧠 Theoretical Concepts
+
+### 🌳 What is a Decision Tree?
+A **Decision Tree** is a tree-like model used to make decisions based on feature values. It splits the dataset into smaller subsets while developing an associated decision tree incrementally.
+
+- **Root Node**: Represents the entire dataset (features and labels).
+- **Internal Nodes**: Represent decisions (based on a feature).
+- **Leaf Nodes**: Represent final outcomes or class labels.
+
+### ⚖️ Criterion – Gini Index
+The `criterion='gini'` parameter is used to determine how the decision tree splits data at each node.
+
+- **Gini Impurity** measures the impurity of a node.
+- A node is pure if all the data points belong to the same class.
+
+**Formula:**
+\[
+Gini(D) = 1 - \sum_{i=1}^{C} (p_i)^2
+\]
+Where:
+- \( C \) = number of classes
+- \( p_i \) = probability of picking class \( i \)
+
+### 🌿 Depth of the Tree
+`max_depth=3` limits the tree from growing too deep, preventing overfitting and making the model easier to interpret.
+
+---
+
+## 🛠️ Practical Implementation
+
+### ✅ Steps Followed:
+1. Loaded the **Iris dataset**.
+2. Split data into **training (80%) and testing (20%)** sets.
+3. Trained a **DecisionTreeClassifier** using Gini Index and `max_depth=3`.
+4. Evaluated the model using **accuracy**.
+5. **Visualized** the tree using `plot_tree()`.
+
+---
+
+## 📎 Code Snippet
+
+```python
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# Load dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Train-test split
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Decision Tree
+clf = DecisionTreeClassifier(criterion='gini', max_depth=3, random_state=42)
+clf.fit(x_train, y_train)
+
+# Predictions and accuracy
+y_pred = clf.predict(x_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# Visualize the tree
+plt.figure(figsize=(12, 8))
+plot_tree(clf, feature_names=iris.feature_names, class_names=iris.target_names, filled=True)
+plt.title("Decision Tree Visualization (Iris Dataset)")
+plt.show()
+```
+
+---
+
+## 🎯 Output Example
+
+- Accuracy: Typically between **0.9 - 1.0**
+- The tree visualization shows how the decision is made based on petal length, width, etc.
+
+---

@@ -1,0 +1,85 @@
+Decision Tree Classifier with Gini Index on Iris Dataset
+
+## 🧠 Theoretical Concepts
+
+### 🌳 Decision Tree Classifier
+A Decision Tree is a **supervised learning algorithm** used for classification and regression tasks. It splits the data into branches based on feature values to make predictions.
+
+### 📌 Gini Index
+- A metric used to measure the **"impurity"** or **"homogeneity"** of a dataset.
+- Gini Index = 1 - Σ(pᵢ)² for all classes.
+- Lower values indicate better purity.
+- Used as a splitting criterion in classification trees.
+
+### 🧮 Evaluation Metrics:
+- **Accuracy**: Proportion of correctly predicted instances.
+- **Confusion Matrix**: Table showing actual vs predicted classifications.
+- **Classification Report**: Provides precision, recall, F1-score per class.
+
+---
+
+## 🧪 Practical Implementation
+
+### ✅ Dataset
+- **Dataset Used**: Iris dataset from `sklearn.datasets`
+- **Features**: Sepal length, Sepal width, Petal length, Petal width
+- **Target Classes**: Setosa, Versicolor, Virginica
+
+### 🔧 Preprocessing Steps
+1. Load dataset
+2. Split into train and test sets (`test_size=0.2`)
+3. Train a Decision Tree Classifier with:
+   - `criterion='gini'`
+   - `max_depth=3`
+   - `random_state=42`
+
+### 🧾 Code Summary
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report
+
+# Load and split data
+iris = load_iris()
+X = iris.data
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Decision Tree with Gini Index
+clf = DecisionTreeClassifier(criterion='gini', max_depth=3, random_state=42)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+# Evaluation
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred, target_names=iris.target_names))
+
+# Visualization
+ConfusionMatrixDisplay.from_estimator(clf, X_test, y_test, display_labels=iris.target_names, cmap=plt.cm.Blues)
+plt.title("Confusion Matrix")
+plt.show()
+
+plt.figure(figsize=(12, 8))
+plot_tree(clf, filled=True, feature_names=iris.feature_names, class_names=iris.target_names)
+plt.title("Decision Tree (Gini Index)")
+plt.show()
+```
+
+---
+
+## 📈 Output Example
+
+- **Accuracy**: ~100% (may vary depending on the split)
+- **Confusion Matrix**: Visual grid of correct vs incorrect predictions
+- **Tree Plot**: Visual representation of decision rules
+
+---
+
+## 📌 Key Learnings
+- Gini index is effective for splitting nodes in decision trees.
+- Visualizing a decision tree helps understand feature importance.
+- Confusion matrix and classification reports are crucial for model evaluation.
+

@@ -1,0 +1,92 @@
+K-Nearest Neighbors Classification on Iris Dataset
+
+## 📌 Objective
+
+This project demonstrates the implementation of the **K-Nearest Neighbors (KNN)** algorithm for multi-class classification using the **Iris dataset**. It includes data preprocessing, model training, evaluation, visualization, and cross-validation.
+
+---
+
+## 📂 Dataset
+
+**Iris dataset**: A classic dataset in machine learning, consisting of 150 samples with 4 features each, classified into 3 species of Iris flowers:
+
+* Setosa
+* Versicolor
+* Virginica
+
+---
+
+## ⚙️ Workflow
+
+### 1. **Load and Prepare Data**
+
+```python
+iris = load_iris()
+x = pd.DataFrame(iris.data, columns=iris.feature_names)
+y = pd.Series(iris.target, name='target')
+```
+
+### 2. **Train-Test Split**
+
+```python
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+```
+
+### 3. **Feature Scaling**
+
+Feature scaling is crucial for KNN to ensure all features contribute equally to distance computation.
+
+```python
+scaler = StandardScaler()
+x_train = pd.DataFrame(scaler.fit_transform(x_train), columns=x_train.columns)
+x_test = pd.DataFrame(scaler.transform(x_test), columns=x_test.columns)
+```
+
+### 4. **Train the KNN Classifier**
+
+```python
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(x_train, y_train)
+```
+
+### 5. **Prediction and Evaluation**
+
+```python
+y_pred = knn.predict(x_test)
+accuracy_score(y_test, y_pred)
+confusion_matrix(y_test, y_pred)
+classification_report(y_test, y_pred)
+```
+
+### 6. **Visualization**
+
+Confusion matrix is visualized using Seaborn:
+
+```python
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
+```
+
+### 7. **Cross-Validation**
+
+Performance is validated using 5-fold cross-validation:
+
+```python
+cross_validate(knn, x, y, cv=5, scoring=['accuracy', 'f1_weighted'])
+```
+
+---
+
+## 📊 Results
+
+* **Accuracy**: \~96.7% (may vary slightly)
+* **Model**: KNN with `n_neighbors=5`
+* **Cross-validation**: Provides averaged scores over 5 folds for both accuracy and F1-score.
+
+---
+
+## ✅ Key Takeaways
+
+* KNN is highly sensitive to feature scaling.
+* Choosing the right value for `k` (neighbors) can significantly impact performance.
+* Cross-validation gives a more robust estimate of model performance.
+

@@ -1,34 +1,4 @@
-Today we explored Decision Trees, a powerful supervised learning algorithm used for both classification and regression tasks. We looked at how decision trees work, evaluated their performance, and visualized them using real-world datasets.
 
-🌳 What is a Decision Tree?
-A Decision Tree is a tree-structured model that makes predictions by learning simple decision rules from data features.
-
-Root Node – The first feature decision.
-
-Internal Nodes – Test conditions based on feature values.
-
-Leaf Nodes – Final predicted label/value.
-
-🧠 Classification vs Regression Trees
-
-Criteria	Classification Tree	Regression Tree
-Goal	Predict categories (labels)	Predict continuous values
-Split Criteria	Gini Impurity, Entropy	Mean Squared Error (MSE)
-Output	Class label	Numeric prediction
-Evaluation	Accuracy, Precision, Recall	MSE, RMSE, R²
-🧪 Theory Concepts
-Gini Impurity: Measures how often a randomly chosen element would be incorrectly classified.
-
-Entropy: Measures the level of impurity/disorder.
-
-Information Gain: Used to determine the feature that best splits the data.
-
-Pruning: Reducing tree depth to prevent overfitting.
-
-🛠️ Code: Hands-On with Decision Trees
-python
-Copy
-Edit
 import pandas as pd
 from sklearn.datasets import load_iris, fetch_california_housing
 from sklearn.model_selection import train_test_split
@@ -64,12 +34,4 @@ reg.fit(X_train_r, y_train_r)
 y_pred_reg = reg.predict(X_test_r)
 
 print("Regression MSE:", mean_squared_error(y_test_r, y_pred_reg))
-✅ Today's Outcomes
-Understood the concept and structure of decision trees.
-
-Learned the difference between classification and regression trees.
-
-Visualized a classification tree using matplotlib.
-
-Measured performance using Accuracy and Mean Squared Error.
 

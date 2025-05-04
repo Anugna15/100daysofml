@@ -1,0 +1,147 @@
+Naive Bayes Classifier on the Iris Dataset
+
+### 📖 Theoretical Background
+
+#### What is Naive Bayes?
+
+Naive Bayes is a **probabilistic classification algorithm** based on **Bayes' Theorem**. It assumes that the features are **independent** given the class label — hence the name *"naive."*
+
+#### Bayes' Theorem:
+
+$$
+P(y|X) = \frac{P(X|y) \cdot P(y)}{P(X)}
+$$
+
+* $P(y|X)$: Posterior probability (what we want to calculate)
+* $P(X|y)$: Likelihood (probability of features given a class)
+* $P(y)$: Prior probability of the class
+* $P(X)$: Evidence (probability of features — constant across classes)
+
+#### Gaussian Naive Bayes:
+
+This variant assumes that the **features follow a normal (Gaussian) distribution**. It models each feature using a Gaussian distribution, which is appropriate for continuous data.
+
+---
+
+### 🧪 Dataset Used: Iris
+
+* The Iris dataset consists of 150 samples from 3 species of Iris flowers.
+* Features:
+
+  * Sepal Length
+  * Sepal Width
+  * Petal Length
+  * Petal Width
+
+---
+
+## 🧠 Implementation Overview
+
+### 1. **Import Required Libraries**
+
+```python
+import pandas as pd
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import seaborn as sns
+```
+
+* Libraries for data manipulation, model building, and visualization.
+
+---
+
+### 2. **Load the Dataset**
+
+```python
+iris = load_iris()
+X = iris.data
+y = iris.target
+```
+
+* `X` contains the feature matrix.
+* `y` contains the target labels (0, 1, 2) for the Iris species.
+
+---
+
+### 3. **Split the Dataset**
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+* 80% of the data is used for training, 20% for testing.
+
+---
+
+### 4. **Standardize the Features**
+
+```python
+std = StandardScaler()
+X_train = std.fit_transform(X_train)
+X_test = std.transform(X_test)
+```
+
+* GaussianNB assumes normal distribution — standardization improves performance.
+
+---
+
+### 5. **Train the Model**
+
+```python
+gnb = GaussianNB()
+gnb.fit(X_train, y_train)
+```
+
+* The model learns the parameters of the Gaussian distribution for each class and feature.
+
+---
+
+### 6. **Make Predictions**
+
+```python
+y_pred = gnb.predict(X_test)
+```
+
+* The trained model predicts the class labels for the test set.
+
+---
+
+### 7. **Evaluate the Model**
+
+```python
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+
+* Accuracy tells the overall correctness.
+* Confusion matrix shows class-wise performance.
+* Classification report provides precision, recall, and F1-score.
+
+---
+
+### 8. **Visualize the Confusion Matrix**
+
+```python
+plt.figure(figsize=(10,6))
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
+```
+
+* A heatmap for better visual understanding of correct and incorrect predictions.
+
+---
+
+## ✅ Output Summary
+
+* **High Accuracy** (typically > 90% on this dataset)
+* Clean classification report with precision, recall, F1
+* Effective visualization for error analysis
+

@@ -1,0 +1,146 @@
+📚 Multinomial Naive Bayes Text Classification (20 Newsgroups Dataset)
+
+### 🧠 Theoretical Overview
+
+**Multinomial Naive Bayes (MNB)** is a supervised learning algorithm particularly effective for **text classification** problems. It's based on Bayes' Theorem and assumes:
+
+* Features are independent given the class (the **naive** assumption)
+* Feature counts follow a **multinomial distribution**
+
+This is especially useful when features represent frequency or occurrence, like **word counts** or **TF-IDF scores** in text data.
+
+#### 🔍 Why TF-IDF?
+
+TF-IDF (Term Frequency–Inverse Document Frequency) transforms text data into numerical vectors by weighing word importance. It:
+
+* Reduces the weight of common words (like "the", "is")
+* Increases the weight of rare but informative words
+
+---
+
+## 🧪 Project Description
+
+This project builds a **multi-class text classifier** on the **20 Newsgroups dataset**, which contains \~18,000 newsgroup posts from 20 categories. The classifier uses:
+
+* `TfidfVectorizer` for feature extraction
+* `MultinomialNB` for classification
+* Performance evaluation using **accuracy, classification report**, and **confusion matrix**
+
+---
+
+## 🧾 Step-by-Step Code Breakdown
+
+### 1. **Import Libraries**
+
+```python
+import pandas as pd, numpy as np
+import matplotlib.pyplot as plt, seaborn as sns
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+```
+
+Essential libraries for:
+
+* Data manipulation: `pandas`, `numpy`
+* Data visualization: `matplotlib`, `seaborn`
+* ML components: datasets, vectorization, models, metrics
+
+---
+
+### 2. **Load and Prepare Dataset**
+
+```python
+data = fetch_20newsgroups(subset='all', remove=('headers', 'footers', 'quotes'))
+df = pd.DataFrame(data.data, columns=['text'])
+df['target'] = data.target
+df = df[df['text'].str.strip().astype(bool)]
+df['target_names'] = df['target'].apply(lambda x: data.target_names[x])
+```
+
+* Loads the full dataset, removing headers/footers for cleaner input
+* Maps target indices to category names
+* Drops empty text rows
+
+---
+
+### 3. **Visualize Class Distribution**
+
+```python
+plt.figure(figsize=(10, 6))
+df['target_names'].value_counts().plot(kind='barh')
+```
+
+Creates a bar chart to understand how balanced the categories are.
+
+---
+
+### 4. **Text Vectorization using TF-IDF**
+
+```python
+vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
+X = vectorizer.fit_transform(df['text'])
+y = df['target']
+```
+
+* Converts raw text into numerical vectors
+* Removes English stop words
+* Uses only top 1000 most informative features
+
+---
+
+### 5. **Train-Test Split**
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+Splits data into training and testing sets (80-20 split).
+
+---
+
+### 6. **Train Multinomial Naive Bayes Model**
+
+```python
+model = MultinomialNB()
+model.fit(X_train, y_train)
+```
+
+Fits the MNB model to the training data.
+
+---
+
+### 7. **Make Predictions and Evaluate**
+
+```python
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred, target_names=data.target_names))
+```
+
+* Outputs model accuracy
+* Shows precision, recall, F1-score per class
+
+---
+
+### 8. **Confusion Matrix Visualization**
+
+```python
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(12, 10))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=data.target_names, yticklabels=data.target_names)
+```
+
+Visualizes where the classifier is getting confused between classes.
+
+---
+
+## ✅ Summary
+
+* Model: Multinomial Naive Bayes
+* Dataset: 20 Newsgroups (20 categories of text data)
+* Preprocessing: TF-IDF with stop-word removal
+* Evaluation: Accuracy, classification report, confusion matrix
+* Performance: High speed and reasonably good accuracy for multi-class text classification tasks

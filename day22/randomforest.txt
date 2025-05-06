@@ -1,0 +1,154 @@
+Titanic Survival Prediction using Random Forest
+
+## 🧠 Theoretical Overview
+
+### 🎯 Objective
+
+Predict whether a passenger survived the Titanic disaster using machine learning techniques based on various features like age, gender, class, etc.
+
+### 🤖 Algorithm Used: Random Forest Classifier
+
+Random Forest is an ensemble learning method that builds multiple decision trees and merges them to get a more accurate and stable prediction.
+
+**Advantages:**
+
+* Handles both numerical and categorical features well.
+* Reduces overfitting through ensemble of multiple trees.
+* Automatically handles feature importance.
+
+### 📊 Evaluation Metrics
+
+* **Accuracy Score**: Measures the proportion of correctly predicted instances.
+* **Confusion Matrix**: Shows the count of true positives, false positives, true negatives, and false negatives.
+* **Classification Report**: Includes precision, recall, f1-score, and support for each class.
+
+---
+
+## 🛠️ Step-by-Step Code Breakdown
+
+### 1. **Importing Required Libraries**
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+```
+
+Used for data manipulation, visualization, model training, and evaluation.
+
+---
+
+### 2. **Loading the Dataset**
+
+```python
+titanic = pd.read_csv('Titanic-Dataset.csv')
+```
+
+Reads the dataset into a DataFrame.
+
+---
+
+### 3. **Initial Data Exploration**
+
+```python
+titanic.info()
+titanic.describe()
+titanic.isnull().sum()
+```
+
+Helps understand data types, statistical distributions, and missing values.
+
+---
+
+### 4. **Data Cleaning**
+
+```python
+titanic.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1, inplace=True)
+titanic.dropna(inplace=True)
+```
+
+Removed unnecessary columns and rows with missing values to simplify modeling.
+
+---
+
+### 5. **Feature Engineering**
+
+```python
+X = titanic.drop('Survived', axis=1)
+y = titanic['Survived']
+X = pd.get_dummies(X, drop_first=True)
+```
+
+Separated features (X) and target variable (y). Converted categorical variables into numeric using one-hot encoding.
+
+---
+
+### 6. **Splitting Data**
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+Split data into 80% training and 20% testing.
+
+---
+
+### 7. **Training the Model**
+
+```python
+rfc = RandomForestClassifier(n_estimators=100)
+rfc.fit(X_train, y_train)
+```
+
+Trained a Random Forest Classifier with 100 trees.
+
+---
+
+### 8. **Model Predictions**
+
+```python
+y_pred = rfc.predict(X_test)
+```
+
+Made predictions on the test set.
+
+---
+
+### 9. **Evaluating the Model**
+
+```python
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+print(accuracy_score(y_test, y_pred))
+```
+
+Printed detailed performance metrics.
+
+---
+
+### 10. **Visualizing Confusion Matrix**
+
+```python
+plt.figure(figsize=(10,6))
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+```
+
+Used a heatmap to visually interpret prediction performance.
+
+---
+
+## ✅ Results Summary
+
+* Random Forest achieved **high accuracy** and balanced performance across classes.
+* Important features likely include **Sex**, **Pclass**, and **Fare**.
+* Model can be further tuned with hyperparameter optimization or feature selection.
+
+

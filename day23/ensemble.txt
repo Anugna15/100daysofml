@@ -1,0 +1,100 @@
+Bagging Classifier with Decision Tree
+
+#### 📌 Theoretical Background
+
+**🎯 Objective**
+To understand the concept of **Bagging (Bootstrap Aggregating)** and how it improves prediction accuracy by combining multiple Decision Trees.
+
+**🧠 What is Bagging?**
+
+* Bagging is an **ensemble learning** technique.
+* It trains multiple models (usually of the same type) on different subsets of the training data (with replacement).
+* It then aggregates their predictions by **voting** (for classification) or **averaging** (for regression).
+* This helps in **reducing variance** and **overfitting**.
+
+**📍 Use Case**
+
+* When a base model (like a Decision Tree) has high variance, Bagging helps stabilize predictions.
+
+---
+
+#### 🧪 Dataset Used
+
+* **Iris Dataset** (Multiclass classification)
+* Features: Sepal & petal length and width.
+* Target: Iris species (`setosa`, `versicolor`, `virginica`).
+
+---
+
+#### 🧾 Steps in Code
+
+1. **Import Libraries & Load Dataset**
+
+   ```python
+   from sklearn.datasets import load_iris
+   iris = load_iris()
+   X = iris.data
+   y = iris.target
+   ```
+
+2. **Standardization**
+
+   * Apply `StandardScaler` to normalize features for better performance.
+
+   ```python
+   from sklearn.preprocessing import StandardScaler
+   scaler = StandardScaler()
+   X = scaler.fit_transform(X)
+   ```
+
+3. **Train/Test Split**
+
+   ```python
+   from sklearn.model_selection import train_test_split
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+   ```
+
+4. **Train Decision Tree**
+
+   ```python
+   dtc = DecisionTreeClassifier()
+   dtc.fit(X_train, y_train)
+   ```
+
+5. **Evaluate Decision Tree**
+
+   ```python
+   y_pred_tree = dtc.predict(X_test)
+   print(accuracy_score(y_test, y_pred_tree))
+   print(confusion_matrix(y_test, y_pred_tree))
+   ```
+
+6. **Train Bagging Classifier**
+
+   ```python
+   from sklearn.ensemble import BaggingClassifier
+   bagging_clf = BaggingClassifier(estimator=DecisionTreeClassifier(), n_estimators=10)
+   bagging_clf.fit(X_train, y_train)
+   ```
+
+7. **Evaluate Bagging Classifier**
+
+   ```python
+   y_pred_bagging = bagging_clf.predict(X_test)
+   print(accuracy_score(y_test, y_pred_bagging))
+   ```
+
+8. **Visualize Predictions**
+
+   * Used `sns.scatterplot()` to visualize class predictions for better comparison.
+
+---
+
+#### 📊 Results
+
+| Model              | Accuracy |
+| ------------------ | -------- |
+| Decision Tree      | \~0.93   |
+| Bagging Classifier | \~0.96   |
+
+✅ **Bagging Classifier performs better**, showing the advantage of ensemble methods over a single tree.

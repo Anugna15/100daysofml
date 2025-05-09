@@ -1,4 +1,4 @@
-# **Theoretical Explanation: Overfitting, Underfitting & Bias-Variance Tradeoff**
+Theoretical Explanation: Overfitting, Underfitting & Bias-Variance Tradeoff
 
 ## **1. Fundamental Concepts**
 

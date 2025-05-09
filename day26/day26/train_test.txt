@@ -1,0 +1,91 @@
+Train/Test Split vs. Cross-Validation
+
+#### 🔹 **Train/Test Split**
+
+* This is the basic method to evaluate model performance.
+* You split your dataset into two parts:
+
+  * **Training set** (usually 70–80%) to train the model.
+  * **Testing set** (remaining 20–30%) to evaluate its performance.
+* Common method: `train_test_split()` from `sklearn.model_selection`.
+
+#### 🔹 **Problems with Train/Test Split**
+
+* Performance metrics depend heavily on **how the data is split**.
+* Model might perform well on one split, but poorly on another.
+
+#### 🔹 **Cross-Validation (CV)**
+
+* A more reliable way to evaluate models.
+* The dataset is split into **K folds**, and the model is trained K times:
+
+  * Each time, one fold is used as the test set, the rest as training.
+  * The final performance is averaged across all folds.
+
+#### ✅ **Types of Cross-Validation**
+
+* **K-Fold CV**: Splits the data into K equal parts.
+
+  * May cause imbalance in classification problems.
+* **StratifiedKFold CV**:
+
+  * Ensures **class proportions** are maintained in each fold (for classification tasks).
+
+---
+
+### 🛠️ **Hands-on Tasks**
+
+#### ✅ 1. **Import necessary libraries and load dataset**
+
+Use any dataset (e.g., Iris, Wine, Breast Cancer from `sklearn.datasets`) or a CSV from Kaggle.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split, KFold, StratifiedKFold, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+```
+
+#### ✅ 2. **Train/Test Split Example**
+
+```python
+data = load_iris()
+X, y = data.data, data.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print("Accuracy (Train/Test Split):", accuracy_score(y_test, y_pred))
+```
+
+#### ✅ 3. **K-Fold Cross-Validation**
+
+```python
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(model, X, y, cv=kf)
+print("Accuracy (K-Fold CV):", scores)
+print("Mean Accuracy:", scores.mean())
+```
+
+#### ✅ 4. **Stratified K-Fold Cross-Validation**
+
+```python
+skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+strat_scores = cross_val_score(model, X, y, cv=skf)
+print("Accuracy (Stratified K-Fold):", strat_scores)
+print("Mean Accuracy:", strat_scores.mean())
+```
+
+#### ✅ 5. **Comparison Table**
+
+Make a markdown or printed summary comparing:
+
+| Method            | Accuracy Scores        | Mean Accuracy |
+| ----------------- | ---------------------- | ------------- |
+| Train/Test Split  | e.g., \[0.9]           | 0.9           |
+| K-Fold            | e.g., \[0.9, 0.87, …]  | avg score     |
+| Stratified K-Fold | e.g., \[0.93, 0.87, …] | avg score     |
+
+

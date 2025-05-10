@@ -1,0 +1,94 @@
+Hyperparameter Tuning with GridSearchCV
+
+## 🔍 Objective
+To understand and implement hyperparameter tuning using **GridSearchCV** on a classification model. The goal is to improve model performance by finding the best combination of hyperparameters.
+
+---
+
+## 🧠 What is Hyperparameter Tuning?
+
+Hyperparameters are parameters set **before training a model** (e.g., number of trees in a Random Forest). They are **not learned** during model training and can significantly affect performance.
+
+Manual tuning can be inefficient, so automated techniques like `GridSearchCV` are used to find the **optimal combination** of hyperparameters using **cross-validation**.
+
+---
+
+## ⚙️ What is GridSearchCV?
+
+`GridSearchCV`:
+- Tries **all combinations** of hyperparameters specified in a grid.
+- Performs **K-Fold cross-validation** to ensure reliable performance estimates.
+- Returns the **best parameters** based on scoring metric (e.g., accuracy).
+
+---
+
+## 🛠️ Implementation Overview
+
+### ✔️ Dataset:
+- **Iris Dataset** from `sklearn.datasets`
+
+### ✔️ Model:
+- **Random Forest Classifier**
+
+### ✔️ Parameters Tuned:
+```python
+param_grid = {
+  'n_estimators': [50, 100, 150],
+  'max_depth': [3, 5, 7, None],
+  'criterion': ['gini', 'entropy']
+}
+````
+
+### ✔️ Code Summary:
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+
+model = RandomForestClassifier()
+grid = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='accuracy')
+grid.fit(X_train, y_train)
+
+print(grid.best_params_)
+print(grid.best_score_)
+```
+
+---
+
+## 📊 Results
+
+### ✅ Best Parameters:
+
+```
+{'criterion': 'gini', 'max_depth': 5, 'n_estimators': 100}
+```
+
+### ✅ Best Cross-Validation Accuracy:
+
+```
+0.955
+```
+
+### 🧪 Test Set Performance:
+
+
+Classification Report:
+  precision  recall  f1-score
+     ...
+
+
+* `GridSearchCV` automates the process of finding the best model settings.
+* It uses cross-validation to reduce variance due to train/test splits.
+* It’s ideal for tuning models like Random Forest, SVC, etc.
+
+
+* Also implemented GridSearchCV on `SVC` model with:
+
+```python
+svc_params = {
+  'C': [0.1, 1, 10],
+  'kernel': ['linear', 'rbf'],
+  'gamma': ['scale', 'auto']
+}
+```
+

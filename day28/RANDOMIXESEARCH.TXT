@@ -1,0 +1,47 @@
+Hyperparameter Tuning with RandomizedSearchCV
+
+🔍 Objective:
+Understand and implement hyperparameter tuning using RandomizedSearchCV. Compare it with GridSearchCV in terms of efficiency and flexibility.
+
+📘 What is RandomizedSearchCV?
+- A method to find the best hyperparameters by sampling from a parameter distribution.
+- Unlike GridSearchCV (which checks all combinations), it samples a fixed number of parameter settings.
+- Useful when the search space is large or training is time-consuming.
+
+🧠 Advantages:
+- Faster than GridSearchCV when the parameter space is large.
+- Good for quick exploration.
+- Still performs cross-validation to ensure performance stability.
+
+🛠️ Dataset:
+- Iris dataset (sklearn.datasets)
+
+📌 Model:
+- RandomForestClassifier
+
+🎯 Parameter Distributions:
+- n_estimators: random integers between 50 and 200
+- max_depth: [None, 5, 10, 20]
+- criterion: ['gini', 'entropy']
+
+💻 Code Outline:
+1. Import libraries and dataset.
+2. Define hyperparameter distributions using `scipy.stats.randint`.
+3. Initialize `RandomForestClassifier`.
+4. Use `RandomizedSearchCV` with `n_iter=10` and `cv=5`.
+5. Fit model and print:
+   - Best parameters
+   - Best cross-validation accuracy
+6. Predict on test set and evaluate using `classification_report`.
+
+📊 Example Output:
+Best Parameters: {'criterion': 'gini', 'max_depth': 10, 'n_estimators': 120}
+Best Cross-Validation Score: 0.97
+
+📈 Test Set Classification Report:
+  precision, recall, f1-score for each class.
+
+📝 Bonus:
+- Compare with GridSearchCV: fewer iterations, faster results.
+- Try on SVC or GradientBoostingClassifier.
+

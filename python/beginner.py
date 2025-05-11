@@ -129,3 +129,158 @@ if sum%5==0:
     print("The sum is divisible by 5")
 else:
     print("The sum is not divisible by 5")
+#Make a program that asks for two numbers and displays if the first is divisible by the second
+a=int(input("Enter 1st number: "))
+b=int(input("Enter 2nd number: "))
+if a%b==0:
+    print(a,"is divisible by",b)
+else:
+    print(a,"is not divisible by",b)
+#repeat loops
+for i in range(10):
+    print(i)
+#Make a program that prints the numbers from 1 to 10
+for i in range(1,11):
+    print(i)
+#Make a program that prints the even numbers from 1 to 20
+for i in range(1,21):
+    if i%2==0:
+        print(i)
+#Make a program that prints the odd numbers from 1 to 20
+for i in range(1,21):
+    if i%2!=0:
+        print(i)
+#Make a program that prints the multiplication table of a number entered by the user
+num=int(input("Enter a number: "))
+for i in range(1,11):
+    print(num,"x",i,"=",num*i)
+#Make a program that prints the first 10 numbers of the Fibonacci sequence
+a=0
+b=1
+print(a)
+print(b)
+for i in range(8):
+    c=a+b
+    print(c)
+    a=b
+    b=c
+#while loops
+i=0
+while i<10:
+    print(i)
+    i+=1
+#Make a program that prints the numbers from 1 to 10 using a while loop
+i=1
+while i<=10:
+    print(i)
+    i+=1
+#counting down from 10 to 1
+count=0
+while count<10:
+    print(count)
+    count+=1
+#Write a program that prints all even numbers from 1 to 100.
+count=0
+while count<100:
+    if count%2==0:
+        print(count)
+    count+=1
+#2nd solution
+count=0
+while count<100:
+    print(count)
+    count+=2
+#Make a program that prints the multiplication table of a number entered by the user using a while loop
+num=int(input("Enter a number: "))
+i=1
+while i<=10:
+    print(num,"x",i,"=",num*i)
+    i+=1
+#Make a program that prints the first 10 numbers of the Fibonacci sequence using a while loop
+n=int(input())
+a=0
+b=1
+print(a)
+print(b)
+i=2
+while i<n:
+    c=a+b
+    print(c)
+    a=b
+    b=c
+    i+=1
+#Make a program that asks for a number and prints its factorial using a while loop
+num=int(input("Enter a number: "))
+factorial=1
+i=1
+while i<=num:
+    factorial*=i
+    i+=1
+print("Factorial of",num,"is",factorial)
+
+#for loop 
+fruits=["apple","banana","cherry"]
+for i in fruits:
+    print(i)
+for i in range(5,3,-1):
+    print(i)
+#Create a program that prompts the user for a number and displays the table of that number using a loop
+num=int(input("Enter a number: "))
+for i in range(1,11):
+    print(num,"x",i,"=",num*i)
+#Create a program that prompts the user for a number and displays the factorial of that number using a loop
+num=int(input("Enter a number: "))
+factorial=1
+for i in range(1,num+1):
+    factorial*=i
+print("Factorial of",num,"is",factorial)
+#Create a program that prompts the user for a number and displays the Fibonacci sequence up to that number using a loop
+num=int(input("Enter a number: "))
+a=0
+b=1
+print(a)
+print(b)
+for i in range(2,num):
+    c=a+b
+    print(c)
+    a=b
+    b=c
+#Create a program that prompts the user for a number and displays the sum of all numbers from 1 to that number using a loop
+n=int(input("Enter a number: "))
+sum=0
+for i in range(1,n+1):
+    sum+=i
+print("Sum of all numbers from 1 to",n,"is",sum)
+#prime number
+n=int(input())
+if n<2:
+    print(n,"is not prime")
+else:
+    for i in range(2,int(n**0.5)+1):
+        if n%i==0:
+            print(n,"is not prime")
+            break
+    else:
+        print(n,"is prime")
+#Create a program that displays the first N prime numbers, where N is informed by the user, using a loop
+n=int(input("Enter a number: "))
+count=0
+num=2
+while count<n:
+    for i in range(2,int(num**0.5)+1):
+        if num%i==0:
+            break
+    else:
+        print(num)
+        count+=1
+    num+=1
+# Create a program that displays the first N first perfect squares, where N is informed by the user, using a loop.
+n=int(input("Enter a number: "))
+for i in range(1,n+1):
+    print(i**2)
+# Write a program that prompts the user for two numbers A and B and displays all numbers between A and B.
+a=int(input("Enter A: "))
+b=int(input("Enter B: "))
+for i in range(a,b+1):
+    print(i)
+    

@@ -1,0 +1,91 @@
+ ML Pipeline with RandomForest and RandomizedSearchCV
+
+This project demonstrates how to automate a machine learning workflow using `Pipeline` from Scikit-learn. It includes preprocessing with `StandardScaler`, model building with `RandomForestClassifier`, and hyperparameter tuning using `RandomizedSearchCV`.
+
+---
+
+## 📁 Dataset
+- **Dataset Used**: Iris dataset from `sklearn.datasets`
+- **Features**: 4 numerical features representing flower measurements
+- **Target**: Species classification (`setosa`, `versicolor`, `virginica`)
+
+---
+
+## ⚙️ Workflow Steps
+
+### 1. **Data Loading & Splitting**
+- Loaded Iris dataset
+- Split into training and testing sets (80/20 split)
+
+### 2. **Pipeline Construction**
+A pipeline was created with the following steps:
+- `StandardScaler` for feature scaling
+- `RandomForestClassifier` as the model
+
+```python
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('classifier', RandomForestClassifier(random_state=42))
+])
+````
+
+### 3. **Hyperparameter Tuning**
+
+Used `RandomizedSearchCV` for efficient tuning:
+
+* Searched over parameters like `n_estimators`, `max_depth`, `min_samples_split`, and `min_samples_leaf`
+* 3-fold cross-validation
+* 10 random combinations evaluated
+
+```python
+param_distributions = {
+    'classifier__n_estimators': [10, 50, 100],
+    'classifier__max_depth': [None, 10, 20, 30],
+    'classifier__min_samples_split': [2, 5, 10],
+    'classifier__min_samples_leaf': [1, 2, 4],
+}
+```
+
+### 4. **Model Evaluation**
+
+* Predictions made on the test set
+* Evaluated using `classification_report` (precision, recall, F1-score)
+
+### 5. **Visualization**
+
+Used Seaborn to plot prediction results based on the first two features.
+
+```python
+sns.scatterplot(x=X_test[:, 0], y=X_test[:, 1], hue=y_pred, palette='viridis')
+```
+
+---
+
+## ✅ Output
+
+* **Best Parameters** (Example Output):
+
+  ```python
+  {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 5, 'min_samples_leaf': 4}
+  ```
+* **Test Accuracy**: \~95.8%
+* **Clean and automated pipeline**
+
+---
+
+## 🛠️ Tools and Libraries
+
+* Python
+* Scikit-learn
+* Seaborn
+* Matplotlib
+
+---
+
+## 🚀 Future Enhancements
+
+* Add classification reports per fold using `cross_val_score`
+* Integrate other classifiers (SVC, Logistic Regression) into the pipeline
+* Deploy using Streamlit or Flask
+
+---

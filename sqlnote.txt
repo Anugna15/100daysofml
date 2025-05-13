@@ -1,0 +1,72 @@
+#Write a query to get all employee detail from "EmployeeDetail" table  
+select * from EmployeeDetail;
+
+#Write a query to get only "FirstName" column from "EmployeeDetail" table 
+select Firstname from EmployeeDetail;
+
+#Write a query to get FirstName in upper case as "First Name". 
+select UPPER(Firstname) as Firstname from EmployeeDetail;
+
+# Write a query to get FirstName in lower case as "First Name". 
+select LOWER(Firstname) as Firstname from EmployeeDetail;
+
+# Write a query for combine FirstName and LastName and display it as "Name" (also include white space between first name & last name)  
+select Firstname+' '+Lastname as Name from EmployeeDetail;
+
+#Select employee detail whose name is "Vikas"  
+select * from EmployeeDetail where Firstname = 'Vikas';
+
+# Get all employee detail from EmployeeDetail table whose "FirstName" start with letter 'a'
+select * from EmployeeDetail where Firstname like 'a%';
+
+#Get all employee details from EmployeeDetail table whose "FirstName" contains 'k'  
+select * from EmployeeDetail where Firstname like '%a%';
+
+# Get all employee details from EmployeeDetail table whose "FirstName" end with 'h' 
+select * from EmployeeDetail where Firstname like '%h';
+
+# Get all employee detail from EmployeeDetail table whose "FirstName" start with any single character between 'a-p'  
+select * from EmployeeDetail where Firstname like '[a-p]%';
+
+#Get all employee detail from EmployeeDetail table whose "FirstName" not start with any single character between 'a-p' 
+select * from EmployeeDetail where Firstname like '![a-p]%';
+
+# Get all employee detail from EmployeeDetail table whose "Gender" end with 'le' and contain 4 letters. The Underscore(_) Wildcard Character represents any single Scharacter. 
+select * from EmployeeDetail where Gender like '__le';
+
+# Get all employee detail from EmployeeDetail table whose "FirstName" start with 'A' and contain 5 letters. 
+select * from EmployeeDetail where Firstname like 'A____';
+
+# Get all employee detail from EmployeeDetail table whose "FirstName" start with 'A' and contain 5 letters. 
+select * from EmployeeDetail where Firstname like '%[%]%';
+
+# Get all unique "Department" from EmployeeDetail table. 
+select Distinct(department) from EmployeeDetail;
+
+#Get the highest "Salary" from EmployeeDetail table
+select max(Salary) from EmployeeDetail;
+
+#Get the lowest "Salary" from EmployeeDetail table
+select min(Salary) from EmployeeDetail;
+
+# Show "JoiningDate" in "dd mmm yyyy" format, ex- "15 Feb 2013" 
+select convert(varchar, JoiningDate, 106) as JoiningDate from EmployeeDetail;
+
+#Show "JoiningDate" in "yyyy/mm/dd" format, ex- "2013/02/15" 
+select convert(varchar, JoiningDate, 111) as JoiningDate from EmployeeDetail;
+
+#Get only Year part of "JoiningDate". 
+select DATEPART(YEAR,JoiningDate) AS year from EmployeeDetail;
+
+##Get only Month part of "JoiningDate".
+select DATEPART(MONTH,JoiningDate) AS month from EmployeeDetail;
+
+#get system DATE
+select getdate();
+
+#get utc DATE
+select getutcdate();
+
+#.Get the first name, current date, joiningdate and diff between current date and joining date in months. 
+SELECT FirstName, GETDATE() [Current Date], JoiningDate, 
+DATEDIFF(MM,JoiningDate,GETDATE()) AS [Total Months] FROM [EmployeeDetails]

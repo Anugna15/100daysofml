@@ -69,4 +69,36 @@ select getutcdate();
 
 #.Get the first name, current date, joiningdate and diff between current date and joining date in months. 
 SELECT FirstName, GETDATE() [Current Date], JoiningDate, 
-DATEDIFF(MM,JoiningDate,GETDATE()) AS [Total Months] FROM [EmployeeDetails]
+DATEDIFF(MM,JoiningDate,GETDATE()) AS [Total Months] FROM [EmployeeDetails;]
+
+#Get the first name, current date, joiningdate and diff between current date and joining date in days
+SELECT FirstName, GETDATE() [Current Date], JoiningDate,
+DATEDIFF(DD,JoiningDate,GETDATE()) AS [Total Days] FROM [EmployeeDetail];
+
+#Get the first name, current date, joiningdate and diff between current date and joining date in days
+select * from EmployeeDetail where DATEPART(yyyy,JoiningDate) = 2013;
+
+#Get all employee details from EmployeeDetail table whose joining month is Jan(1)
+select * from EmployeeDetail where DATEPART(MM,JoiningDate)='1';
+
+#Get all employee details from EmployeeDetail table whose joining date between "2013-01-01" and "2013-12-01"
+select * from EmployeeDetail where JoiningDate between '2013-01-01' and '2013-12-01';
+
+#Get how many employee exist in "EmployeeDetail" table.
+select count(*) from EmployeeDetails;
+
+#Select only one/top 1 record from "EmployeeDetail" table
+select TOP1* from EmployeeDetails;
+
+#. Select all employee detail with First name "Vikas","Ashish", and "Nikhil"
+select * from EmployeeDetail where FirstName  IN('Vikas','Ashish','Nikhil);
+
+#. Select all employee detail with First name NOT IN "Vikas","Ashish", and "Nikhil"
+select * from EmployeeDetail where FirstName NOT IN('Vikas','Ashish','Nikhil);
+
+#Select first name from "EmployeeDetail" table after removing white spaces from right side
+select RTRIM(FirstName) as FirstName from EmployeeDetail;
+
+#Select first name from "EmployeeDetail" table after removing white spaces from left side
+select LTRIM(FirstName) as FirstName from EmployeeDetail;
+

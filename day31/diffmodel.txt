@@ -1,0 +1,91 @@
+Titanic Survival Prediction
+
+This project uses the Titanic dataset to predict passenger survival using various machine learning classification algorithms. The goal is to compare model performances and evaluate the best one based on accuracy and classification metrics.
+
+---
+
+## 📁 Dataset
+
+- **Source**: [`Titanic-Dataset.csv`](https://www.kaggle.com/competitions/titanic/data)
+- **Features Used**:
+  - `Pclass`: Ticket class
+  - `Sex`: Gender
+  - `Age`: Age in years
+  - `SibSp`: # of siblings/spouses aboard
+  - `Parch`: # of parents/children aboard
+  - `Fare`: Passenger fare
+  - `Embarked`: Port of Embarkation
+
+---
+
+## ⚙️ Preprocessing Steps
+
+1. **Missing Values**:
+   - Dropped rows with missing `Embarked` values.
+   - Filled missing `Age` values with the mean.
+
+2. **Feature Encoding**:
+   - Converted `Sex` to numerical (`0` for female, `1` for male) using `LabelEncoder`.
+   - One-hot encoded categorical features like `Embarked`.
+
+3. **Dropped Irrelevant Features**:
+   - Removed `PassengerId`, `Name`, `Ticket`, and `Cabin`.
+
+4. **Feature Scaling**:
+   - Standardized `Age` and `Fare` using `StandardScaler`.
+
+---
+
+## 🧠 Models Used
+
+- Random Forest Classifier
+- Decision Tree Classifier
+- Support Vector Machine (SVM)
+- Logistic Regression
+- K-Nearest Neighbors (KNN)
+- Gaussian Naive Bayes
+
+---
+
+## 📊 Evaluation Metrics
+
+- **Accuracy Score**
+- **Confusion Matrix**
+- **Classification Report**
+  - Precision
+  - Recall
+  - F1-score
+
+---
+
+## 🖼️ Visualizations
+
+- **Bar Plot** comparing accuracy of all models.
+- **Confusion Matrix Heatmap** for the best-performing model.
+
+---
+
+## 🔍 Results
+
+The models were evaluated on test data. The best-performing model was selected based on **highest accuracy**, and its performance was further analyzed using a confusion matrix and classification report.
+
+---
+
+## ✅ Requirements
+
+Install the following libraries before running the notebook:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn
+````
+
+## 📌 Conclusion
+
+This project demonstrates how basic preprocessing and multiple classification algorithms can be applied to a real-world dataset. You can further improve it using:
+
+* Cross-validation
+* Hyperparameter tuning
+* Ensemble techniques like stacking
+
+---
+

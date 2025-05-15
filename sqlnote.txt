@@ -102,3 +102,39 @@ select RTRIM(FirstName) as FirstName from EmployeeDetail;
 #Select first name from "EmployeeDetail" table after removing white spaces from left side
 select LTRIM(FirstName) as FirstName from EmployeeDetail;
 
+#Display first name and Gender as M/F.(if male then M, if Female then F)
+select FirstName,case when Gender='M' then 'M' else 'F' end as Gender from EmployeeDetail;
+
+#Select first name from "EmployeeDetail" table prifixed with "Hello "
+select 'hello'+ FirstName from EmployeeDetail;
+
+# Get employee details from "EmployeeDetail" table whose Salary greater than 600000
+select * from EmployeeDetail where Salary >600000;
+
+#Get employee details from "EmployeeDetail" table whose Salary less than 600000
+select * from EmployeeDetail where Salary <600000;
+
+#Get employee details from "EmployeeDetail" table whose Salary between 600000 and 700000
+select * from EmployeeDetail where Salary between 600000 and 700000;
+
+#Select second highest salary from "EmployeeDetail" table.
+select MAX(Salary) from EmployeeDetail order by Salary DESC LIMIT 1 OFFSET 1;
+select TOP1 Salary from EmployeeDetail ORDER BY Salary DESC OFFSET 1 ROWS;
+
+#Write the query to get the department and department wise total(sum) salary from "EmployeeDetail" table.
+select department,sum(salary) as totalsalary from EmployeeDetails groupby department;
+
+#Write the query to get the department and department wise total(sum) salary,display it in descending order according to salary.
+select department,sum(salary) as totalsalary from EmployeeDetails groupby department order by totalsalary desc;
+
+# Write the query to get the department, total no. of departments, total(sum) salary with respect to department from "EmployeeDetail" table.
+select department,count(*) as totalno, sum(salary) as totalsalary from EmployeeDetails groupby department;
+
+#Get department wise average salary from "EmployeeDetail" table order by salary ascending
+select department,avg(salary) as Salary FROM EmployeeDetails GROUP BY department ORDER BY Salary ASC;
+
+
+SELECT min(salary) FROM EmployeeDetails groupby department;
+
+#Write down the query to fetch Project name assign to more than one Employee
+select ProjectName from EmployeeDetails group by ProjectName having count(*)>1;

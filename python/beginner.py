@@ -283,4 +283,128 @@ a=int(input("Enter A: "))
 b=int(input("Enter B: "))
 for i in range(a,b+1):
     print(i)
-    
+
+#Make a program that reads three grades from a student and reports whether he passed (final grade greater than or equal to 7), failed (final grade less than 4) or was in recovery (final grade between 4 and 7).
+grade1=float(input("Enter 1st grade: "))
+grade2=float(input("Enter 2nd grade: "))
+grade3=float(input("Enter 3rd grade: "))
+average=(grade1+grade2+grade3)/3
+if average>=7:
+    print("Passed")
+elif average<4:
+    print("Failed")
+else:
+    print("Recovery")
+
+#Write a program that asks for the name of a day of the week and displays whether it is a weekday (Monday to Friday) or a weekend day (Saturday and Sunday).
+day=input("Enter the name of a day of the week: ")
+day=day.lower()
+if day=='saturday' or day=='sunday':
+    print(day,"is a weekend day")
+else:
+    print(day,"is a weekday")
+
+# Create a program that asks for a person's age and displays whether they are a child (0-12 years old), teenager (13-17 years old), adult (18-59 years old),or elderly (60 years old or older).
+age=int(input("Enter your age: "))
+if age>=0 and age<=12:
+    print("Child")
+elif age>=13 and age<=17:
+    print("Teenager")
+elif age>=18 and age<=59:
+    print("Adult")
+else:
+    print("Elderly")
+
+#Make a program that reads two numbers and tells you if the first is divisible by the second.
+a=int(input("Enter a number: "))
+b=int(input("Enter another number: "))
+if a%b==0:
+    print(a,"is divisible by",b)
+else:
+    print(a,"is not divisible by",b)
+
+#Repeat Loops
+while True:
+    num=int(input("Enter a number: "))
+    if num==0:
+        break
+    print(num)
+
+
+#Write a program that prints all even numbers from 1 to 100.
+for i in range(1,101):
+    if i%2==0:
+        print(i)
+
+for i in range(2,101,2):
+    print(i)
+
+num=1
+while num<=100:
+    if num%2==0:
+        print(num)
+    num+=1
+
+#Write a program that asks the user for a number N and displays the sum of all numbers from 1 to N.
+n=int(input("Enter a number: "))
+sum=0
+for i in range(1,n+1):
+    sum+=i
+print("Sum of all numbers from 1 to",n,"is",sum)
+
+#Write a program that calculates and displays the sum of even numbers from 1 to 100 using a repeating loop.
+sum=0
+for i in range(1,101):
+    if i%2==0:
+        sum+=i
+print("Sum of even numbers from 1 to 100 is",sum)
+
+#Write a program that calculates and displays the value of the power of a number entered by the user raised to an exponent also entered by the user, using repetition loops
+base=int(input("Enter base: "))
+exponent=int(input("Enter exponent: "))
+result=1
+for i in range(exponent):
+    result*=base
+    print(base,"raised to the power of",exponent,"is",result)
+
+
+
+sentences =input("Enter a sentence: ")
+count=0
+for char in sentences:
+    char=char.lower()
+    if char in "aeiou":
+        count+=1
+print("Number of vowels in the sentence is",count)
+
+#Write a program that prompts the user for a number and displays its divisors.
+num=int(input("Enter a number: "))
+print("Divisors of",num,"are:")
+for i in range(1,num+1):
+    if num%i==0:
+        print(i)
+
+#Write a program that prompts the user for a number and displays its prime factors.
+num=int(input("Enter a number: "))
+print("Prime factors of",num,"are:")
+for i in range(2,num+1):
+    while num%i==0:
+        print(i)
+        num//=i
+
+#Write a program that determines the lowest common multiple (LCM) between two numbers entered by the user.
+a=int(input("Enter 1st number: "))
+b=int(input("Enter 2nd number: "))
+lcm=a*b
+while b!=0:
+    a,b=b,a%b
+lcm//=a
+print("LCM is",lcm)
+
+a=int(input("Enter 1st number: "))
+b=int(input("Enter 2nd number: "))
+gcd=a*b
+while b!=0:
+    a,b=b,a%b
+gcd//=a
+print("GCD is",gcd)

@@ -1,4 +1,3 @@
-'''
 my_list=[1,2,3,4,5]
 print(my_list)
 
@@ -120,4 +119,38 @@ for i in array:
     if target==i:
         count+=1
 print("the target element ",target,"apperead",count,"times")
-'''
+
+
+#multiply 2 arrays
+n=int(input("enter length of the vector :"))
+vector1=[]
+vector2=[]
+print("elements of 1st vector")
+for i in range(n):
+    element=int(input("elements {} ".format(i+1)))
+    vector1.append(element)
+print("elements of 2nd vector")
+for i in range(n):
+    element=int(input("elements {} ".format(i+1)))
+    vector2.append(element)
+resultant=[]
+for i in range(n):
+    resultant.append(vector1[i]*vector2[i])
+print(resultant)
+
+
+#checks that all elements are even in the array
+n=int(input("enter size of array : "))
+array=[]
+for i in range(n):
+    ele=int(input('element {} '.format(i+1)))
+    array.append(ele)
+is_even=True
+for i in array:
+    if i%2!=0:
+        is_even=False
+        break
+if is_even==True:
+    print("even array")
+else:
+    print("not even array")

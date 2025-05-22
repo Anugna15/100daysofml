@@ -392,7 +392,7 @@ for i in range(2,num+1):
         print(i)
         num//=i
 
-#Write a program that determines the lowest common multiple (LCM) between two numbers entered by the user.
+#Write a program that determines the lowest common multiple (LCM) between two numbers entered by the user
 a=int(input("Enter 1st number: "))
 b=int(input("Enter 2nd number: "))
 lcm=a*b
